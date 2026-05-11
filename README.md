@@ -12,4 +12,4 @@ ViewGame is designed for desktop browsers including:
 4. Microsoft Edge
 
 ## Link to Developer Manual 
-See the [Developer Manual](docs/README.d) for setup and technical documentation.
+See the [Developer Manual](docs/README.md) for setup and technical documentation.
