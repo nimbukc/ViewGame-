@@ -4,6 +4,7 @@ let statsChart = null;
 window.onload = function() {
   loadMatches();
   loadFavorites();
+  loadStandings();
 };
 
 function searchTeam() {
@@ -60,14 +61,21 @@ function loadMatches() {
           ? `${match.matchResults[0].pointsTeam1} - ${match.matchResults[0].pointsTeam2}`
           : 'TBD';
 
+        const matchDate = new Date(match.matchDateTime).toLocaleDateString('en-US', {
+          weekday: 'short',
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+
         const slide = document.createElement('div');
         slide.className = 'swiper-slide';
         slide.innerHTML = `
           <p><strong>${match.team1.teamName}</strong> vs <strong>${match.team2.teamName}</strong></p>
           <p>Score: ${score}</p>
+          <p style="color:#666; font-size:14px;">📅 ${matchDate}</p>
         `;
 
-        /* Click on match card to search that team */
         slide.onclick = function() {
           document.getElementById('searchInput').value = match.team1.teamName;
           searchTeam();
@@ -105,8 +113,43 @@ function loadFavorites() {
       data.forEach(fav => {
         const tag = document.createElement('div');
         tag.className = 'favorite-tag';
-        tag.textContent = fav.team_name;
+        tag.innerHTML = `
+          ${fav.team_name}
+          <span onclick="deleteFavorite(${fav.id})" style="margin-left:8px; cursor:pointer; color:#e74c3c;">✕</span>
+        `;
         list.appendChild(tag);
+      });
+    });
+}
+
+function deleteFavorite(id) {
+  fetch(`/api/favorites/${id}`, {
+    method: 'DELETE'
+  })
+  .then(res => res.json())
+  .then(() => loadFavorites());
+}
+
+function loadStandings() {
+  fetch('/api/standings')
+    .then(res => res.json())
+    .then(data => {
+      const body = document.getElementById('standingsBody');
+      body.innerHTML = '';
+      data.forEach((team, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${team.teamName}</td>
+          <td>${team.matches}</td>
+          <td>${team.won}</td>
+          <td>${team.draw}</td>
+          <td>${team.lost}</td>
+          <td>${team.goals}</td>
+          <td>${team.opponentGoals}</td>
+          <td><strong>${team.points}</strong></td>
+        `;
+        body.appendChild(row);
       });
     });
 }

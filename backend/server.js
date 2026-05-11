@@ -42,6 +42,22 @@ app.post('/api/favorites', async (req, res) => {
   }
 });
 
+/* Delete a favorite team */
+app.delete('/api/favorites/:id', async (req, res) => {
+  const id = req.params.id;
+  const { data, error } = await supabase
+    .from('favorites')
+    .delete()
+    .eq('id', id)
+    .select();
+  if (error) {
+    res.statusCode = 500;
+    res.send(error);
+  } else {
+    res.json(data);
+  }
+});
+
 /* Get the match results */
 app.get('/api/matches', async (req, res) => {
   const response = await fetch('https://api.openligadb.de/getmatchdata/bl1/2024');
