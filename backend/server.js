@@ -1,11 +1,9 @@
-/* ViewGame Backend */
+/* This is ViewGame Backend */
 /* This connects to OpenLigaDB for soccer data and Supabase for saving favorites */
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const supabaseClient = require('@supabase/supabase-js');
 const path = require('path');
-
 const app = express();
 const port = 3000;
 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ViewGame - Soccer Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">⚽ ViewGame</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="help.html">Help</a>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Soccer Stats Dashboard</h1>
+    <p class="subtitle">Search for a Bundesliga team to view their stats</p>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Enter team name e.g. Bayern..." />
+      <button onclick="searchTeam()">Search</button>
+    </div>
+
+    <div id="teamStats" class="team-stats hidden">
+      <h2 id="teamName"></h2>
+      <div class="stats-grid">
+        <div class="stat-box"><span id="teamPoints"></span><p>Points</p></div>
+        <div class="stat-box"><span id="teamWins"></span><p>Wins</p></div>
+        <div class="stat-box"><span id="teamLosses"></span><p>Losses</p></div>
+        <div class="stat-box"><span id="teamDraws"></span><p>Draws</p></div>
+        <div class="stat-box"><span id="teamGoals"></span><p>Goals Scored</p></div>
+        <div class="stat-box"><span id="teamConceded"></span><p>Goals Conceded</p></div>
+      </div>
+      <button id="favoriteBtn" onclick="saveFavorite()">⭐ Save to Favorites</button>
+      <canvas id="statsChart" width="400" height="200"></canvas>
+    </div>
+
+    <h2>Recent Matches</h2>
+    <div class="swiper">
+      <div class="swiper-wrapper" id="matchSlider"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <h2>Saved Favorites</h2>
+    <div id="favoritesList" class="favorites-list"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
