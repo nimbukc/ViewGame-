@@ -1,7 +1,7 @@
 let currentTeam = null;
 let statsChart = null;
 
-window.onload = function() {
+window.onload = function () {
   loadMatches();
   loadFavorites();
   loadStandings();
@@ -76,7 +76,7 @@ function loadMatches() {
           <p style="color:#666; font-size:14px;">📅 ${matchDate}</p>
         `;
 
-        slide.onclick = function() {
+        slide.onclick = function () {
           document.getElementById('searchInput').value = match.team1.teamName;
           searchTeam();
           window.scrollTo(0, 0);
@@ -100,8 +100,8 @@ function saveFavorite() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ team_name: currentTeam.teamName })
   })
-  .then(res => res.json())
-  .then(() => loadFavorites());
+    .then(res => res.json())
+    .then(() => loadFavorites());
 }
 
 function loadFavorites() {
@@ -126,8 +126,8 @@ function deleteFavorite(id) {
   fetch(`/api/favorites/${id}`, {
     method: 'DELETE'
   })
-  .then(res => res.json())
-  .then(() => loadFavorites());
+    .then(res => res.json())
+    .then(() => loadFavorites());
 }
 
 function loadStandings() {
@@ -149,6 +149,12 @@ function loadStandings() {
           <td>${team.opponentGoals}</td>
           <td><strong>${team.points}</strong></td>
         `;
+        row.style.cursor = 'pointer';
+        row.onclick = function () {
+          document.getElementById('searchInput').value = team.teamName;
+          searchTeam();
+          window.scrollTo(0, 0);
+        };
         body.appendChild(row);
       });
     });
