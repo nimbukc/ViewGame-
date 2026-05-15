@@ -10,12 +10,9 @@ This document is for future developers who will work on the ViewGame project.
    npm install
 
 ## How to Run the Application
-1. Navigate to the backend folder:
-   cd backend
-2. Start the server:
-   node server.js
-3. Open your browser and go to:
-   http://localhost:3000
+1. Navigate to the backend folder: cd backend
+2. Start the server: node server.js
+3. Open your browser and go to: http://localhost:3000
 
 ## API Endpoints
  Method - Endpoint - Description
